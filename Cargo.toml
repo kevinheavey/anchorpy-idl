@@ -1,6 +1,6 @@
 [package]
 name = "anchorpy_idl"
-version = "0.2.0"
+version = "0.1.0"
 edition = "2021"
 include = ["/src", "/LICENSE", "/pyproject.toml"]
 description = "Python bindings for Anchor Rust code"
