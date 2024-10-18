@@ -59,7 +59,7 @@ fn handle_py_value_err<T: Into<P>, E: ToString, P>(res: Result<T, E>) -> PyResul
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Display, Hash)]
-#[pyclass(module = "anchorpy_core.idl")]
+#[pyclass(module = "anchorpy_idl.idl")]
 pub enum IdlTypeSimple {
     Bool,
     U8,
@@ -113,7 +113,7 @@ impl PyHash for IdlTypeSimple {}
 impl IdlTypeSimple {}
 
 #[derive(Debug, Clone, PartialEq, Eq, From, Into, Serialize, Deserialize, Hash, Display)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeDefined(String);
 
 impl PyHash for IdlTypeDefined {}
@@ -137,7 +137,7 @@ impl IdlTypeDefined {
 struct_boilerplate!(IdlTypeDefined);
 
 #[derive(Debug, Clone, PartialEq, Eq, From, Into, Serialize, Deserialize, Hash, Display)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeGeneric(String);
 
 impl PyHash for IdlTypeGeneric {}
@@ -199,7 +199,7 @@ impl From<anchor_idl::types::IdlDefinedTypeArg> for IdlDefinedTypeArg {
 }
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeDefinedWithTypeArgs {
     #[pyo3(get)]
     name: String,
@@ -220,7 +220,7 @@ impl IdlTypeDefinedWithTypeArgs {
 struct_boilerplate!(IdlTypeDefinedWithTypeArgs);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeOption(Box<IdlType>);
 
 debug_display!(IdlTypeOption);
@@ -241,7 +241,7 @@ impl IdlTypeOption {
 struct_boilerplate!(IdlTypeOption);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeVec(Box<IdlType>);
 
 #[pymethods]
@@ -261,7 +261,7 @@ struct_boilerplate!(IdlTypeVec);
 debug_display!(IdlTypeVec);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeArray(Box<IdlType>, usize);
 
 #[pymethods]
@@ -281,7 +281,7 @@ struct_boilerplate!(IdlTypeArray);
 debug_display!(IdlTypeArray);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeGenericLenArray(Box<IdlType>, String);
 
 #[pymethods]
@@ -422,7 +422,7 @@ impl From<IdlType> for anchor_idl::types::IdlType {
 }
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlConst(anchor_idl::types::IdlConst);
 
 #[richcmp_eq_only]
@@ -459,7 +459,7 @@ struct_boilerplate!(IdlConst);
 debug_display!(IdlConst);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlField(anchor_idl::types::IdlField);
 
 #[richcmp_eq_only]
@@ -496,7 +496,7 @@ struct_boilerplate!(IdlField);
 debug_display!(IdlField);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeDefinitionTyStruct(Vec<IdlField>);
 
 #[richcmp_eq_only]
@@ -518,7 +518,7 @@ struct_boilerplate!(IdlTypeDefinitionTyStruct);
 debug_display!(IdlTypeDefinitionTyStruct);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeDefinitionTyAlias(IdlType);
 
 #[richcmp_eq_only]
@@ -540,7 +540,7 @@ struct_boilerplate!(IdlTypeDefinitionTyAlias);
 debug_display!(IdlTypeDefinitionTyAlias);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct EnumFieldsNamed(Vec<IdlField>);
 
 #[richcmp_eq_only]
@@ -562,7 +562,7 @@ struct_boilerplate!(EnumFieldsNamed);
 debug_display!(EnumFieldsNamed);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct EnumFieldsTuple(Vec<IdlType>);
 
 #[richcmp_eq_only]
@@ -618,7 +618,7 @@ impl IntoPy<PyObject> for EnumFields {
 }
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlEnumVariant(anchor_idl::types::IdlEnumVariant);
 
 #[richcmp_eq_only]
@@ -649,7 +649,7 @@ struct_boilerplate!(IdlEnumVariant);
 debug_display!(IdlEnumVariant);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeDefinitionTyEnum(Vec<IdlEnumVariant>);
 
 #[richcmp_eq_only]
@@ -719,7 +719,7 @@ impl IntoPy<PyObject> for IdlTypeDefinitionTy {
 }
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlTypeDefinition(anchor_idl::types::IdlTypeDefinition);
 
 #[richcmp_eq_only]
@@ -796,7 +796,7 @@ impl IntoPy<PyObject> for IdlAccountItem {
 }
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlAccounts(anchor_idl::types::IdlAccounts);
 
 #[richcmp_eq_only]
@@ -827,7 +827,7 @@ struct_boilerplate!(IdlAccounts);
 debug_display!(IdlAccounts);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlSeedConst(anchor_idl::types::IdlSeedConst);
 
 #[richcmp_eq_only]
@@ -859,7 +859,7 @@ struct_boilerplate!(IdlSeedConst);
 debug_display!(IdlSeedConst);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlSeedArg(anchor_idl::types::IdlSeedArg);
 
 #[richcmp_eq_only]
@@ -890,7 +890,7 @@ struct_boilerplate!(IdlSeedArg);
 debug_display!(IdlSeedArg);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlSeedAccount(anchor_idl::types::IdlSeedAccount);
 
 #[richcmp_eq_only]
@@ -965,7 +965,7 @@ impl IntoPy<PyObject> for IdlSeed {
 }
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlPda(anchor_idl::types::IdlPda);
 
 #[richcmp_eq_only]
@@ -996,7 +996,7 @@ struct_boilerplate!(IdlPda);
 debug_display!(IdlPda);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlAccount(anchor_idl::types::IdlAccount);
 
 #[richcmp_eq_only]
@@ -1065,7 +1065,7 @@ struct_boilerplate!(IdlAccount);
 debug_display!(IdlAccount);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlInstruction(anchor_idl::types::IdlInstruction);
 
 #[richcmp_eq_only]
@@ -1120,7 +1120,7 @@ struct_boilerplate!(IdlInstruction);
 debug_display!(IdlInstruction);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlState(anchor_idl::types::IdlState);
 
 #[richcmp_eq_only]
@@ -1151,7 +1151,7 @@ struct_boilerplate!(IdlState);
 debug_display!(IdlState);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlEvent(anchor_idl::types::IdlEvent);
 
 #[richcmp_eq_only]
@@ -1182,7 +1182,7 @@ struct_boilerplate!(IdlEvent);
 debug_display!(IdlEvent);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlEventField(anchor_idl::types::IdlEventField);
 
 #[richcmp_eq_only]
@@ -1219,7 +1219,7 @@ struct_boilerplate!(IdlEventField);
 debug_display!(IdlEventField);
 
 #[derive(Debug, Clone, PartialEq, Eq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct IdlErrorCode(anchor_idl::types::IdlErrorCode);
 
 #[richcmp_eq_only]
@@ -1251,7 +1251,7 @@ struct_boilerplate!(IdlErrorCode);
 debug_display!(IdlErrorCode);
 
 #[derive(Debug, Clone, PartialEq, From, Into, Serialize, Deserialize)]
-#[pyclass(module = "anchorpy_core.idl", subclass)]
+#[pyclass(module = "anchorpy_idl.idl", subclass)]
 pub struct Idl(anchor_idl::types::Idl);
 
 #[richcmp_eq_only]

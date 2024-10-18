@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  name: anchorpy_core
+  name: anchorpy_idl
   python_version: "3.9"
   CARGO_INCREMENTAL: 0
   RUSTFLAGS: "-D warnings"

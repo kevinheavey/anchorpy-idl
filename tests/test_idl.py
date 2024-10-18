@@ -1,4 +1,4 @@
-from anchorpy_core.idl import (
+from anchorpy_idl.idl import (
     Idl,
     IdlField,
     IdlAccount,

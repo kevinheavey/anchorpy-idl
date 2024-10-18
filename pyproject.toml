@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "anchorpy-core"
+name = "anchorpy-idl"
 version = "0.2.0"
 description = "Python bindings for Anchor Rust code"
 authors = ["Kevin Heavey <kevinheavey123@gmail.com>"]
@@ -25,7 +25,7 @@ requires = ["maturin>=0.13.6,<0.14"]
 build-backend = "maturin"
 
 [project]
-name = "anchorpy-core"
+name = "anchorpy-idl"
 version = "0.2.0"
 description = "Python bindings for Anchor Rust code"
 authors = [ {name = "kevinheavey", email = "kevinheavey123@gmail.com"} ]
@@ -38,10 +38,10 @@ classifiers = [
 dependencies = ["jsonalias ==0.1.1"]
 
 [project.urls]
-homepage = "https://github.com/kevinheavey/anchorpy-core"
-documentation = "https://kevinheavey.github.io/anchorpy-core/"
-repository = "https://github.com/kevinheavey/anchorpy-core"
-changelog = "https://github.com/kevinheavey/anchorpy-core/blob/main/CHANGELOG.md"
+homepage = "https://github.com/kevinheavey/anchorpy-idl"
+documentation = "https://kevinheavey.github.io/anchorpy-idl/"
+repository = "https://github.com/kevinheavey/anchorpy-idl"
+changelog = "https://github.com/kevinheavey/anchorpy-idl/blob/main/CHANGELOG.md"
 
 [tool.maturin]
 python-source = "python"
