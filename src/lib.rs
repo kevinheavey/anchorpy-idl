@@ -1,9 +1,11 @@
 use idl::{
-    Idl, IdlAccount, IdlConst, IdlDefinedFieldsNamed, IdlDefinedFieldsTuple, IdlEnumVariant, IdlErrorCode,
-    IdlEvent, IdlField, IdlInstruction, IdlInstructionAccount, IdlInstructionAccounts, IdlPda,
-    IdlSeedAccount, IdlSeedArg, IdlSeedConst, IdlTypeArray, IdlTypeDef, IdlTypeDefAlias,
-    IdlTypeDefEnum, IdlTypeDefStruct, IdlTypeDefined, IdlTypeGeneric,
-    IdlTypeOption, IdlTypeSimple, IdlTypeVec,
+    Idl, IdlAccount, IdlConst, IdlDefinedFieldsNamed, IdlDefinedFieldsTuple, IdlDependency,
+    IdlDeployments, IdlEnumVariant, IdlErrorCode, IdlEvent, IdlField, IdlInstruction,
+    IdlInstructionAccount, IdlInstructionAccounts, IdlMetadata, IdlPda, IdlReprModifierC,
+    IdlReprModifierRust, IdlReprSimple, IdlSeedAccount, IdlSeedArg, IdlSeedConst,
+    IdlSerializationSimple, IdlTypeArray, IdlTypeDef, IdlTypeDefAlias, IdlTypeDefEnum,
+    IdlTypeDefGenericConst, IdlTypeDefGenericType, IdlTypeDefStruct, IdlTypeDefined,
+    IdlTypeGeneric, IdlTypeOption, IdlTypeSimple, IdlTypeVec,
 };
 use pyo3::{
     prelude::*,
@@ -28,19 +30,27 @@ fn anchorpy_idl(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<IdlEnumVariant>()?;
     m.add_class::<IdlTypeDefEnum>()?;
     m.add_class::<IdlTypeDefAlias>()?;
+    m.add_class::<IdlTypeDefGenericConst>()?;
+    m.add_class::<IdlTypeDefGenericType>()?;
     m.add_class::<IdlTypeDef>()?;
     m.add_class::<IdlInstructionAccounts>()?;
     m.add_class::<IdlSeedConst>()?;
     m.add_class::<IdlSeedArg>()?;
+    m.add_class::<IdlReprModifierRust>()?;
+    m.add_class::<IdlReprModifierC>()?;
+    m.add_class::<IdlReprSimple>()?;
     m.add_class::<IdlSeedAccount>()?;
+    m.add_class::<IdlSerializationSimple>()?;
     m.add_class::<IdlPda>()?;
     m.add_class::<IdlInstructionAccount>()?;
     m.add_class::<IdlInstruction>()?;
     m.add_class::<IdlEvent>()?;
     m.add_class::<IdlErrorCode>()?;
     m.add_class::<IdlTypeGeneric>()?;
+    m.add_class::<IdlDependency>()?;
+    m.add_class::<IdlDeployments>()?;
+    m.add_class::<IdlMetadata>()?;
     m.add_class::<IdlAccount>()?;
-    m.add_class::<IdlTypeDef>()?;
     m.add_class::<Idl>()?;
 
     let typing = py.import("typing")?;
@@ -71,12 +81,38 @@ fn anchorpy_idl(py: Python, m: &PyModule) -> PyResult<()> {
         "IdlSeed",
         union.get_item(PyTuple::new(py, idl_seed_members))?,
     )?;
+
+    let idl_repr_members = vec![
+        IdlReprModifierRust::type_object(py),
+        IdlReprModifierC::type_object(py),
+        IdlReprSimple::type_object(py),
+    ];
+    m.add(
+        "IdlRepr",
+        union.get_item(PyTuple::new(py, idl_repr_members))?,
+    )?;
+    let idl_serialization_members = vec![
+        IdlSerializationSimple::type_object(py),
+        PyString::type_object(py),
+    ];
+    m.add(
+        "IdlSerialization",
+        union.get_item(PyTuple::new(py, idl_serialization_members))?,
+    )?;
+    let idl_type_def_generic_members = vec![
+        IdlTypeDefGenericType::type_object(py),
+        IdlTypeDefGenericConst::type_object(py),
+    ];
+    m.add(
+        "IdlTypeDefGeneric",
+        union.get_item(PyTuple::new(py, idl_type_def_generic_members))?,
+    )?;
     let compound_members = vec![
         IdlTypeDefined::type_object(py),
         IdlTypeOption::type_object(py),
         IdlTypeVec::type_object(py),
         IdlTypeArray::type_object(py),
-        PyString::type_object(py)
+        PyString::type_object(py),
     ];
     m.add(
         "IdlTypeCompound",
